@@ -1,8 +1,4 @@
-#include "kncedlg.h"
-
-#include <string>
-#include <windows.h>
-#include <knceutil.h>
+#include "kncedlg.hpp"
 
 #ifdef UNICODE
 namespace std { typedef wstring tstring; }
@@ -113,7 +109,7 @@ static bool onInitDialog(HWND hDlg, void *params) {
     HWND hFileNameBox = GetDlgItem(hDlg, IDC_CHOOSE_FILE_FILE_NAME_BOX);
 
     if (data->chooseFileParams->isSaveFile) {
-        SetWindowText(hDlg, _T("ñºëOÇïtÇØÇƒï€ë∂"));
+        SetWindowText(hDlg, _T("ÂêçÂâç„Çí‰ªò„Åë„Å¶‰øùÂ≠ò"));
 
         unsigned long style = GetWindowLong(hFileList, GWL_STYLE);
         SetWindowLong(hFileList, GWL_STYLE, style | LBS_NOSEL);
@@ -166,7 +162,7 @@ static bool onInitDialog(HWND hDlg, void *params) {
 
     if (data->chooseFileParams->isSaveFile) {
         if (fileName.empty())
-            SetWindowText(hFileNameBox, _T("ñ≥ëË"));
+            SetWindowText(hFileNameBox, _T("ÁÑ°È°å"));
         else
             SetWindowText(hFileNameBox, fileName.c_str());
 
@@ -228,17 +224,12 @@ static void onOk(HWND hDlg) {
     _tcsncpy(data->chooseFileParams->fileName, filePath.c_str(), MAX_PATH);
 
     if (data->chooseFileParams->isSaveFile) {
-        FILE *file = _tfopen(filePath.c_str(), _T("r"));
+        HANDLE file = CreateFile(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
         if (file != NULL) {
-            fclose(file);
-            tstring msg = fileName + _T(" ÇÕä˘Ç…ë∂ç›ÇµÇƒÇ¢Ç‹Ç∑ÅB\n")
-                _T("è„èëÇ´ÇµÇ‹Ç∑Ç©?");
+            CloseHandle(file);
+            tstring msg = fileName + _T(" „ÅØÊó¢„Å´Â≠òÂú®„Åó„Å¶„ÅÑ„Åæ„Åô„ÄÇ\n‰∏äÊõ∏„Åç„Åó„Åæ„Åô„Åã?");
 
-            if (MessageBox(hDlg, msg.c_str(), _T("ämîF"),
-                MB_ICONEXCLAMATION | MB_YESNO) == IDNO)
-            {
-                return;
-            }
+            if (MessageBox(hDlg, msg.c_str(), _T("Á¢∫Ë™ç"), MB_ICONEXCLAMATION | MB_YESNO) == IDNO) { return; }
         }
     }
 
@@ -308,7 +299,7 @@ static void onDirectoryList(HWND hDlg, int event) {
         dirDisp = dirDispCStr;
     }
 
-    if (dirDisp == _T("(è„Ç÷...)")) {
+    if (dirDisp == _T("(‰∏ä„Å∏...)")) {
         int pos = data->currentPath.rfind(_T('\\'));
         if (pos == 0)
             data->currentPath = _T("\\");
@@ -353,7 +344,7 @@ static void updateFileList(HWND hDlg) {
 
     tstring dirName;
     if (isRoot)
-        dirName = _T("[É}ÉC ÉfÉoÉCÉX]");
+        dirName = _T("[„Éû„Ç§ „Éá„Éê„Ç§„Çπ]");
     else {
         dirName = _T("[") + data->currentPath.substr(
             data->currentPath.rfind(_T('\\')) + 1) + _T("]");
@@ -373,7 +364,7 @@ static void updateFileList(HWND hDlg) {
     SendMessage(hDirList, LB_RESETCONTENT, 0, 0);
 
     if (!isRoot)
-        SendMessage(hDirList, LB_ADDSTRING, 0, (LPARAM)_T("(è„Ç÷...)"));
+        SendMessage(hDirList, LB_ADDSTRING, 0, (LPARAM)_T("(‰∏ä„Å∏...)"));
 
     tstring findPath;
     if (isRoot)

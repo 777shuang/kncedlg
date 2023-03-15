@@ -1,8 +1,5 @@
-#include "kncedlg.h"
-
-#include <string>
-#include <windows.h>
-#include <knceutil.h>
+#include "kncedlg.hpp"
+#include "7swinutil/tstring.h"
 
 #ifdef UNICODE
 namespace std { typedef wstring tstring; }
@@ -114,10 +111,10 @@ static void onInitDialog(HWND hDlg, void *params) {
     }
 
     HWND hFontStyleList = GetDlgItem(hDlg, IDC_CHOOSE_FONT_STYLE_LIST);
-    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("•W€"));
-    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("ŽÎ‘Ì"));
-    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("‘¾Žš"));
-    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("‘¾Žš ŽÎ‘Ì"));
+    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("æ¨™æº–"));
+    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("æ–œä½“"));
+    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("å¤ªå­—"));
+    SendMessage(hFontStyleList, LB_ADDSTRING, 0, (LPARAM)_T("å¤ªå­— æ–œä½“"));
 
     data->hCurrentFont = NULL;
     data->isInitializing = true;
@@ -221,7 +218,7 @@ static void updateFont(HWND hDlg) {
     TCHAR *sizeBuf = new TCHAR[SendMessage(hFontSizeList, LB_GETTEXTLEN,
         fontSizeIndex, 0) + 1];
     SendMessage(hFontSizeList, LB_GETTEXT, fontSizeIndex, (LPARAM)sizeBuf);
-    int pointSize = _ttoi(sizeBuf) * 10;
+    int pointSize = ttoi(sizeBuf) * 10;
 
     HWND hFontStyleList = GetDlgItem(hDlg, IDC_CHOOSE_FONT_STYLE_LIST);
     int fontStyleIndex = SendMessage(hFontStyleList, LB_GETCURSEL, 0, 0);

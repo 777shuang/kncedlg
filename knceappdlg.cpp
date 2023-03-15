@@ -1,9 +1,6 @@
-#include "kncedlg.h"
+#include "kncedlg.hpp"
 
-#include <string>
 #include <algorithm>
-#include <windows.h>
-#include <knceutil.h>
 
 #ifdef UNICODE
 namespace std { typedef wstring tstring; }
@@ -187,7 +184,7 @@ static void onPathBrowse(HWND hDlg, int event) {
 
     KnceChooseFileParams params = {0};
     params.isSaveFile = false;
-    params.filters = _T("実行可能ファイル (*.exe)|*.exe|すべてのファイル (*.*)|*.*");
+    params.filters = _T("螳溯｡悟庄閭ｽ繝輔ぃ繧､繝ｫ (*.exe)|*.exe|縺吶∋縺ｦ縺ｮ繝輔ぃ繧､繝ｫ (*.*)|*.*");
 
     if (knceChooseFile(hDlg, &params)) {
         HWND hPathEdit = GetDlgItem(hDlg, IDC_PATH_EDIT);
@@ -202,7 +199,7 @@ static void updateApplicationList(HWND hDlg) {
 
     vector<pair<tstring, tstring> > captToPath;
 
-    tstring dir = _T("\\NAND3\\アプリ");
+    tstring dir = _T("\\NAND3\\繧｢繝励Μ");
     tstring findPath = dir + _T("\\*.*");
 
     WIN32_FIND_DATA fd;
@@ -220,7 +217,7 @@ static void updateApplicationList(HWND hDlg) {
 
     FindClose(hFind);
 
-    dir = _T("\\Storage Card\\アプリ");
+    dir = _T("\\Storage Card\\繧｢繝励Μ");
     findPath = dir + _T("\\*.*");
 
     hFind = FindFirstFile(findPath.c_str(), &fd);

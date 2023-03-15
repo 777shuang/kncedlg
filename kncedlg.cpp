@@ -1,4 +1,4 @@
-#include "kncedlg.h"
+#include "kncedlg.hpp"
 
 #include <algorithm>
 #include <map>

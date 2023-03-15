@@ -1,7 +1,4 @@
-#include "kncedlg.h"
-
-#include <string>
-#include <windows.h>
+#include "kncedlg.hpp"
 
 #ifdef UNICODE
 namespace std { typedef wstring tstring; }
@@ -102,7 +99,7 @@ static void onCreate(HWND hWnd, CREATESTRUCT *createStruct) {
 
 	if (data->message.empty()) {
 		if(GetUserDefaultLCID() == 1041) //Japanese
-			data->message = _T("‚¨‘Ò‚¿‚­‚¾‚³‚¢...");
+			data->message = _T("ãŠå¾…ã¡ãã ã•ã„...");
 		else //Other Language
 			data->message = _T("Please Wait...");
 	}

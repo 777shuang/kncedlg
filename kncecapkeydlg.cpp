@@ -1,8 +1,4 @@
-#include "kncedlg.h"
-
-#include <string>
-#include <windows.h>
-#include <knceutil.h>
+#include "kncedlg.hpp"
 
 #ifdef UNICODE
 namespace std { typedef wstring tstring; }

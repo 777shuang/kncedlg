@@ -1,8 +1,4 @@
-#include "kncedlg.h"
-
-#include <string>
-#include <windows.h>
-#include <knceutil.h>
+#include "kncedlg.hpp"
 
 #ifdef UNICODE
 namespace std { typedef wstring tstring; }
@@ -135,7 +131,7 @@ static void onDirectoryList(HWND hDlg, int event) {
         dirDisp = dirDispCStr;
     }
 
-    if (dirDisp == _T("(上へ...)")) {
+    if (dirDisp == _T("(荳翫∈...)")) {
         int pos = data->currentPath.rfind(_T('\\'));
         if (pos == 0)
             data->currentPath = _T("\\");
@@ -160,7 +156,7 @@ static void updateDirectoryList(HWND hDlg) {
 
     tstring dirName;
     if (isRoot)
-        dirName = _T("[マイ デバイス]");
+        dirName = _T("[繝槭う 繝�繝舌う繧ｹ]");
     else {
         dirName = _T("[") + data->currentPath.substr(
             data->currentPath.rfind(_T('\\')) + 1) + _T("]");
@@ -174,7 +170,7 @@ static void updateDirectoryList(HWND hDlg) {
     SendMessage(hDirList, LB_RESETCONTENT, 0, 0);
 
     if (!isRoot)
-        SendMessage(hDirList, LB_ADDSTRING, 0, (LPARAM)_T("(上へ...)"));
+        SendMessage(hDirList, LB_ADDSTRING, 0, (LPARAM)_T("(荳翫∈...)"));
 
     tstring findPath;
     if (isRoot)
