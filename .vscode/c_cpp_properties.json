@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "WinCE",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/arm-mingw32ce/include"
+            ],
+            "defines": [
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "/usr/bin/arm-mingw32ce-gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-arm",
+            "compilerArgs": [
+                "-march=armv5tej",
+                "-mcpu=arm926ej-s"
+            ]
+        }
+    ],
+    "version": 4
+}
