@@ -1,0 +1,6 @@
+[submodule "knceutil"]
+	path = knceutil
+	url = https://github.com/777shuang/knceutil
+[submodule "7swinutil"]
+	path = 7swinutil
+	url = https://github.com/777shuang/7swinutil
